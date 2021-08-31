@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2021_08_31_074621) do
     t.string "title"
     t.string "artist"
     t.string "video"
-    t.text "coment"
+    t.text "comment"
     t.integer "user_id"
-    t.text "other_coment"
+    t.text "other_comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

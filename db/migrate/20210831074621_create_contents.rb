@@ -4,9 +4,9 @@ class CreateContents < ActiveRecord::Migration[6.1]
       t.string :title
       t.string :artist
       t.string :video
-      t.text :coment
+      t.text :comment
       t.integer :user_id
-      t.text :other_coment
+      t.text :other_comment
 
       t.timestamps
     end
