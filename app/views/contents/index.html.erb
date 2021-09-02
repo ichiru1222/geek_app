@@ -1,1 +1,14 @@
+<h3>投稿一覧</h3>
+<div class="contents-container">
+    <% @contents.each do |c| %>
+        <div class="contents">
+            <%= c.title %>
+            <%= c.artist %>
+            <%= c.video %>
+            <%= c.comment %>
+            <%= c.user.name %>
+        </div>
+    <% end %>
+</div>
+
 <%= link_to "新規投稿", new_content_path %>
