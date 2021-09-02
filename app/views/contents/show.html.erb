@@ -1,0 +1,12 @@
+<h3>投稿詳細</h3>
+
+<div　class="content">
+    <p> <%= @content.title %> </p>
+    <p> <%= @content.artist %> </p>
+    <p> <%= @content.video %> </p>
+    <p> <%= @content.comment %> </p>
+    <p> <%= @content.user.name %> </p>
+</div>
+
+
+<%= link_to "投稿一覧へ", contents_path %>

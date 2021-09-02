@@ -7,8 +7,12 @@
             <%= c.video %>
             <%= c.comment %>
             <%= c.user.name %>
+            <%= c.created_at %>
         </div>
+        <%= link_to "詳細へ", content_path(c.id) %>
     <% end %>
 </div>
 
 <%= link_to "新規投稿", new_content_path %>
+<%= link_to "ログイン", new_user_session_path %>
+<%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
