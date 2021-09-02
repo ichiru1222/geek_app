@@ -8,5 +8,7 @@
     <p> <%= @content.user.name %> </p>
 </div>
 
+<%= link_to "投稿の修正", edit_content_path(@content.id) %>
+<%= button_to "削除する", content_path(@content.id), method: :delete %>
 
 <%= link_to "投稿一覧へ", contents_path %>
