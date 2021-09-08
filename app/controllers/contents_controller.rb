@@ -3,6 +3,16 @@ class ContentsController < ApplicationController
         @contents = Content.all
     end
 
+    def search
+        if params[:search] != nil && params[:search] != ''
+            #部分検索かつ複数検索
+            search = params[:search]
+            @contents = Content.joins(:user).where("title LIKE ? OR name LIKE ?", "%#{search}%", "%#{search}%")
+          else
+            @contents = Content.all
+          end
+    end
+
     def new
         @content = Content.new
     end

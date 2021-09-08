@@ -8,6 +8,20 @@
     <p> <%= @content.user.name %> </p>
 </div>
 
+  <% if user_signed_in? %>
+      <% if current_user.already_liked?(@content) %>
+          <%= link_to content_like_path(@content), method: :delete do %>
+             <p>いいねを取り消す</p><%= @content.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to content_likes_path(@content), method: :post do %>
+             <p>いいね</p><%= @content.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <p>いいねの数 = </p><%= @content.likes.count %>
+  <% end %>
+
 <%= link_to "投稿の修正", edit_content_path(@content.id) %>
 <%= button_to "削除する", content_path(@content.id), method: :delete %>
 

@@ -1,7 +1,5 @@
-<h3>投稿一覧</h3>
-
 <h3>投稿を検索</h3>
- <%= form_tag({controller:"contents",action:"search"}, method: :get) do %>
+ <%= form_tag(url:search_contents_path, method: :get) do %>
    <%= text_field_tag :search %>
    <%= submit_tag '検索する'  %>
 <% end %>
@@ -34,8 +32,6 @@
     <% end %>
 </div>
 
-
-
-<%= link_to "新規投稿", new_content_path %>
-<%= link_to "ログイン", new_user_session_path %>
-<%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+<div class="link">
+    <%= link_to "投稿一覧に戻る", contents_path %>
+</div>
