@@ -4,7 +4,7 @@
     <p> <%= @content.title %> </p>
     <p> <%= @content.artist %> </p>
     <p> <%= @content.video %> </p>
-    <p> <%= @content.comment %> </p>
+    <p> <%= @content.my_comment %> </p>
     <p> <%= @content.user.name %> </p>
 </div>
 
@@ -21,6 +21,27 @@
   <% else %>
       <p>いいねの数 = </p><%= @content.likes.count %>
   <% end %>
+
+<div class="comment-wrapper">
+    <p>コメント一覧</p>
+    <% @comments.each do |cm| %>
+        <div>
+            <%= cm.user.name %>
+            <br>
+            <%= cm.body %>
+        </div>
+        <br>
+    <% end %>
+
+    <% if user_signed_in? %>
+        <%= form_with(model: [@content, @comment], local: true) do |f| %>
+            <%= f.text_area :body %>
+            <%= button_tag type: "submit" do %>
+                <i class="fa-comments"></i> コメントする
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
 
 <%= link_to "投稿の修正", edit_content_path(@content.id) %>
 <%= button_to "削除する", content_path(@content.id), method: :delete %>
