@@ -3,7 +3,7 @@
 <div　class="content">
     <p> <%= @content.title %> </p>
     <p> <%= @content.artist %> </p>
-    <p> <%= @content.video %> </p>
+    <p> <%=  video_tag @content.video_url ,:controls => true if @content.video?%> </p>
     <p> <%= @content.my_comment %> </p>
     <p> <%= @content.user.name %> </p>
 </div>

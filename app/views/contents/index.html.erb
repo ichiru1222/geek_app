@@ -15,7 +15,7 @@
         <div class="contents">
             <%= c.title %>
             <%= c.artist %>
-            <%= c.video %>
+            <%= video_tag c.video ,:controls => true if c.video? %>
             <%= c.my_comment %>
             <a href="/users/<%= c.user.id %>">
                 <%= c.user.name %>
