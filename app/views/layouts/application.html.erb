@@ -11,6 +11,20 @@
   </head>
 
   <body>
+   <header>
+      <h1><%= link_to "Instrumovie", contents_path %></h1>
+      <div class="header-list">
+      <ul>
+        <li><% if user_signed_in? %>
+              <%= link_to "マイページへ", user_path(current_user.id) %>
+            <% else %>
+              <%= link_to "ログイン", new_user_session_path %>
+            <% end %>
+        </li>
+        <li><%= link_to "新規投稿", new_content_path %></li>
+      </ul>
+      </div>
+    </header>
     <%= yield %>
   </body>
 </html>

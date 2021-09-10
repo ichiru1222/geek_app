@@ -1,6 +1,6 @@
 <h3>投稿詳細</h3>
 
-<div　class="content">
+<div　class="content-wrapper">
     <p> <%= @content.title %> </p>
     <p> <%= @content.artist %> </p>
     <p> <%=  video_tag @content.video_url ,:controls => true if @content.video?%> </p>
@@ -43,7 +43,9 @@
     <% end %>
 </div>
 
-<%= link_to "投稿の修正", edit_content_path(@content.id) %>
-<%= button_to "削除する", content_path(@content.id), method: :delete %>
+<% if user_signed_in? && current_user.id == @content.user_id %>  
+    <%= link_to "投稿の修正", edit_content_path(@content.id) %>
+    <%= button_to "削除する", content_path(@content.id), method: :delete %>
+<% end %>
 
 <%= link_to "投稿一覧へ", contents_path %>
