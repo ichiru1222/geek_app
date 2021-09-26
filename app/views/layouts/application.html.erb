@@ -11,17 +11,18 @@
   </head>
 
   <body>
-   <header>
-      <h1><%= link_to "Instrumovie", contents_path %></h1>
-      <div class="header-list">
+   <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h1 class="my-0 mr-md-auto font-weight-normal"><%= link_to "Instrumovie", contents_path %></h1>
+      <div class="my-2 my-md-0 mr-md-3">
       <ul>
-        <li><% if user_signed_in? %>
+        <li class="p-2 text-dark">
+            <% if user_signed_in? %>
               <%= link_to "マイページへ", user_path(current_user.id) %>
             <% else %>
               <%= link_to "ログイン", new_user_session_path %>
             <% end %>
         </li>
-        <li><%= link_to "新規投稿", new_content_path %></li>
+        <li class="btn btn-outline-primary"><%= link_to "新規投稿", new_content_path %></li>
       </ul>
       </div>
     </header>
