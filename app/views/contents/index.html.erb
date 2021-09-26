@@ -4,15 +4,12 @@
 <%= link_to "マイページへ", user_path(current_user.id) %>
 <% end %>
 
-<h3>投稿を検索</h3>
- <%= form_tag({controller:"contents",action:"search"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
 
-<div class="contents-container">
+<div class="container">
+<div class="row align-items-start">
     <% @contents.each do |c| %>
-        <div class="contents">
+        
+        <div class="col">
             <%= c.title %>
             <%= c.artist %>
             <%= video_tag c.video ,:controls => true if c.video? %>
@@ -21,7 +18,7 @@
                 <%= c.user.name %>
             </a>
             <%= c.created_at %>
-        </div>
+        
         <%= link_to "詳細へ", content_path(c.id) %>
     <% if user_signed_in? %>
       <% if current_user.already_liked?(c) %>
@@ -38,10 +35,10 @@
     <% end %>
 
     <% end %>
+    </div>
+    </div>
 </div>
 
 
 
-<%= link_to "新規投稿", new_content_path %>
-<%= link_to "ログイン", new_user_session_path %>
-<%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+<%= button_to "ログアウト", destroy_user_session_path, method: :delete,  class:"btn btn-primary" %>
