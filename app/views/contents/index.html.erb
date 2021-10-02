@@ -1,4 +1,8 @@
-<h3>投稿一覧</h3>
+
+<div class="container">
+<h1>投稿一覧</h1>
+</div>
+</div>
 
 <% if user_signed_in? %>
 <%= link_to "マイページへ", user_path(current_user.id) %>
@@ -6,13 +10,12 @@
 
 
 <div class="container">
-<div class="row align-items-start">
     <% @contents.each do |c| %>
         
-        <div class="col">
+        <div class="video-content">
             <%= c.title %>
             <%= c.artist %>
-            <%= video_tag c.video ,:controls => true if c.video? %>
+            <%= video_tag c.video ,:controls => true if c.video?  %>
             <%= c.my_comment %>
             <a href="/users/<%= c.user.id %>">
                 <%= c.user.name %>
@@ -35,9 +38,8 @@
     <% end %>
 
     <% end %>
+    
     </div>
-    </div>
-</div>
 
 
 
