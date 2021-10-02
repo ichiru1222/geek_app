@@ -11,33 +11,13 @@
   </head>
 
   <body>
-   <header class="navbar navbar-dark ">
-      <h1 class="my-0 mr-md-auto font-weight-normal text-white"><%= link_to "Instrumovie", contents_path %></h1>
-      <div class="my-2 my-md-0 mr-md-3">
-
-      <ul>
-      <li>
-      
-         <%= form_tag(search_contents_path, method: :get) do %>
-         <div class="input-group">
-            <%= text_field_tag :search %>
-            <div class="input-group-btn">
-            <%= submit_tag '検索する' , class:"btn btn-primary" %>
-            </div>
-          <% end %>
-        </div>
-      </li>
-        <li class="p-2 text-dark">
-            <% if user_signed_in? %>
-              <%= link_to "マイページへ", user_path(current_user.id) %>
-            <% else %>
-              <%= link_to "ログイン", new_user_session_path %>
-            <% end %>
-        </li>
-        <li class="btn btn-outline-primary"><%= link_to "新規投稿", new_content_path %></li>
-      </ul>
+  <%= render "layouts/header" %>
+    <div class="jumbotron jumbotron-fluid",>
+      <div class="container text-white">
+        <h1>Jumbotron</h1>
+        <p>Jumbotronのサンプルです</p>
       </div>
-    </header>
+    </div>
     <div class="container">
       <%= yield %>
     </div>

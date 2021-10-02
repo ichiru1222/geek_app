@@ -1,27 +1,29 @@
-<h3 class="col-md-4 offset-md-4">新規投稿</h3>
+
 <div class="container col-md-4 offset-md-4">
 <%= form_for @content do |f| %>
     <div class="form_group pt-4 pb-3">
         <%= f.label :title %>
         <%= f.text_field :title,  class: "form-control" %>
     </div>
-    <div class="form_group pt-4 pb-3">
+    <div class="form_group">
         <%= f.label :artist %>
         <%= f.text_field :artist,  class: "form-control" %>
     </div>
-    <div class="form_group pt-4 pb-3">
+    <div class="form_group">
         <%= f.label :video %>
-        <%= f.file_field :video %>
+        <%= f.file_field :video, class:"btn btn-light" %>
     </div>
-    <div class="form_group pt-4 pb-3">
+    <div class="form_group">
         <%= f.label :my_comment %>
-        <%= f.text_area :my_comment, row:32, class: "form-control" %>
+        <%= f.text_area :my_comment, row:32, class: "form-control", id:"item_comment" %>
     </div>
     <div class="button">
-        <%= f.submit "投稿する", class: "btn btn-primary" %>
+        <%= f.submit "投稿する", class: "btn btn-primary mt-4" %>
     </div>
 <% end %>
+
 </div>
+
 <div class="link">
     <%= link_to "投稿一覧に戻る", contents_path %>
 </div>
