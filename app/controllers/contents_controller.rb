@@ -1,6 +1,6 @@
 class ContentsController < ApplicationController
     def index
-        @contents = Content.all
+        @contents = Content.all.page(params[:page]).per(3)
     end
 
     def search
