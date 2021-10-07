@@ -1,29 +1,27 @@
-
-<div class="container col-md-4 offset-md-4">
-<%= form_for @content do |f| %>
-    <div class="form_group pt-4 pb-3">
-        <%= f.label :title %>
-        <%= f.text_field :title,  class: "form-control" %>
+<div class="card col-sm-10 mx-auto mt-5">
+  <div class="card-body">
+    <h2 class="mt-1 mb-3">新規投稿</h2>
+        <%= form_for @content do |f| %>
+            <div class="form_group">
+                <%= f.label :title, :class => "form-label" %>
+                <%= f.text_field :title,  :class => "form-control" %>
+            </div>
+            <div class="form_group">
+                <%= f.label :artist, :class => "form-label" %>
+                <%= f.text_field :artist,  :class => "form-control" %>
+            </div>
+            <div class="form_group">
+                <%= f.label :video, :class => "form-label" %>
+                <%= f.file_field :video, :class => "btn btn-light" %>
+            </div>
+            <div class="form_group">
+                <%= f.label :my_comment %>
+                <%= f.text_area :my_comment, row:32, :class => "form-control", id:"item_comment" %>
+            </div>
+            <div class="button">
+                <%= f.submit "投稿する", class: "btn btn-primary mt-4" %>
+            </div>
+        <% end %>
     </div>
-    <div class="form_group">
-        <%= f.label :artist %>
-        <%= f.text_field :artist,  class: "form-control" %>
-    </div>
-    <div class="form_group">
-        <%= f.label :video %>
-        <%= f.file_field :video, class:"btn btn-light" %>
-    </div>
-    <div class="form_group">
-        <%= f.label :my_comment %>
-        <%= f.text_area :my_comment, row:32, class: "form-control", id:"item_comment" %>
-    </div>
-    <div class="button">
-        <%= f.submit "投稿する", class: "btn btn-primary mt-4" %>
-    </div>
-<% end %>
-
 </div>
 
-<div class="link">
-    <%= link_to "投稿一覧に戻る", contents_path %>
-</div>
