@@ -1,36 +1,103 @@
-<h1>users#show</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<h1>マイページ</h1>
 
-<% if user_signed_in? %>
-    <% if current_user.id == @user.id %>
-        <%= link_to "編集する", edit_user_registration_path %>
+<div class="card  mb-3 " style="width: 100%;">
+    <div class="card-header">名前 : <%= @user.name %></div>
+    <div class="card-text">メールアドレス : <%= @user.email %></div>
+    <div class="card-text">プロフィール : <%= @user.profile %></div>
+
+    <% if user_signed_in? %>
+        <% if current_user.id == @user.id %>
+        <div class="card-footer">
+            <%= link_to "編集する", edit_user_registration_path, class:"btn btn-link" %>
+        </div>
+        <% end %>
     <% end %>
-<% end %>
+</div>
 
 <h2>ユーザーの投稿一覧</h2>
 <% @user.contents.each do |c| %>
-        <div class="contents">
-            <%= c.title %>
-            <%= c.artist %>
-            <%= c.video %>
-            <%= c.my_comment %>
-            <%= c.created_at %>
+    <div class="card mb-3" style="width: 90%;">
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <div class="bd-placeholder-img"><%= video_tag(c.video, controls: true, width: "100%", height: "100%" ) %></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title"><%= c.title %></h5>
+                    <h6 class="card-subtitle text-muted mt-5"><%= c.artist %></h6>
+                    <a href="/users/<%= c.user.id %>", class="card-link"><h5 class="text-right"><%= c.user.name %></h5></a>
+                    <div class="mb-2 text-muted"><%= c.created_at %></div>
+                    <%= link_to "詳細へ", content_path(c.id), class:"btn btn-secondary pull-right mb-3" %>
+                
+                    <% if user_signed_in? %>
+                        <% if current_user.already_liked?(c) %>
+                            <div class="card-footer text-muted">
+                                <p><span class="far fa-thumbs-up"></i>いいね:<%= c.likes.count %></p>
+                                    <%= link_to content_like_path(id: c.id, content_id: c.id), method: :delete do %>
+                                        <p>いいねを取り消す</p>
+                                    <% end %>
+                            </div>
+                        <% else %>
+                            <div class="card-footer text-muted">
+                                <%= link_to content_likes_path(id: c.id, content_id: c.id), method: :post do %>
+                                    <p><span class="far fa-thumbs-up"></i>いいね:<%= c.likes.count %></p>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    <% else %>
+                        <div class="card-footer text-muted">
+                            <p><span class="far fa-thumbs-up">いいねの数 : <%= c.likes.count %> </p>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
         </div>
+    </div>
 <% end %>
+
+
 
 <!-- 以下はいいね機能を実装している場合-->
 <h2>ユーザーがいいねした投稿一覧</h2>
 <% @user.liked_contents.each do |c| %>
-        <div class="contents">
-            <%= c.title %>
-            <%= c.artist %>
-            <%= c.video %>
-            <%= c.my_comment %>
-            <%= c.created_at %>
+    <div class="card mb-3" style="width: 90%;">
+        <div class="row no-gutters">
+            <div class="col-md-6">
+                <div class="bd-placeholder-img"><%= video_tag(c.video, controls: true, width: "100%", height: "100%" ) %></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title"><%= c.title %></h5>
+                    <h6 class="card-subtitle text-muted mt-5"><%= c.artist %></h6>
+                    <a href="/users/<%= c.user.id %>", class="card-link"><h5 class="text-right"><%= c.user.name %></h5></a>
+                    <div class="mb-2 text-muted"><%= c.created_at %></div>
+                    <%= link_to "詳細へ", content_path(c.id), class:"btn btn-secondary pull-right mb-3" %>
+                
+                    <% if user_signed_in? %>
+                        <% if current_user.already_liked?(c) %>
+                            <div class="card-footer text-muted">
+                                <p><span class="far fa-thumbs-up"></i>いいね:<%= c.likes.count %></p>
+                                    <%= link_to content_like_path(id: c.id, content_id: c.id), method: :delete do %>
+                                        <p>いいねを取り消す</p>
+                                    <% end %>
+                            </div>
+                        <% else %>
+                            <div class="card-footer text-muted">
+                                <%= link_to content_likes_path(id: c.id, content_id: c.id), method: :post do %>
+                                    <p><span class="far fa-thumbs-up"></i>いいね:<%= c.likes.count %></p>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    <% else %>
+                        <div class="card-footer text-muted">
+                            <p><span class="far fa-thumbs-up">いいねの数 : <%= c.likes.count %> </p>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
         </div>
+    </div>
 <% end %>
 <!-- ここまで-->
 
-<%= link_to "投稿一覧に戻る", contents_path %>
+<%= link_to "投稿一覧に戻る", contents_path, class:"btn btn-link" %>
