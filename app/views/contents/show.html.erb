@@ -1,51 +1,59 @@
 <h3>投稿詳細</h3>
 
-<div　class="content-wrapper">
-    <p> <%= @content.title %> </p>
-    <p> <%= @content.artist %> </p>
-    <p> <%=  video_tag @content.video_url ,:controls => true if @content.video?%> </p>
-    <p> <%= @content.my_comment %> </p>
-    <p> <%= @content.user.name %> </p>
-</div>
+<div　class="card" style="width: 9rem;">
+    <div class="card-img-top thumbnail"><%= video_tag(@content.video, controls: true, width: "100%", height: "100%" ) %></div>
+    <h2 class="card-title"> <%= @content.title %> </h2>
+    <h3 class="card-subtitle"> <%= @content.artist %> </h3>
+    <div class="card-text"> <%= @content.my_comment %> </div>
+    <a href="/users/<%= @content.user.id %>", class="card-link"><h5 class="text-right"><%= @content.user.name %></h5></a>
 
-  <% if user_signed_in? %>
-      <% if current_user.already_liked?(@content) %>
-          <%= link_to content_like_path(@content), method: :delete do %>
-             <p>いいねを取り消す</p><%= @content.likes.count %>
-          <% end %>
-      <% else %>
-          <%= link_to content_likes_path(@content), method: :post do %>
-             <p>いいね</p><%= @content.likes.count %>
-          <% end %>
-      <% end %>
-  <% else %>
-      <p>いいねの数 = </p><%= @content.likes.count %>
-  <% end %>
-
-<div class="comment-wrapper">
-    <p>コメント一覧</p>
-    <% @comments.each do |cm| %>
-        <div>
-            <%= cm.user.name %>
-            <br>
-            <%= cm.body %>
-        </div>
-        <br>
-    <% end %>
 
     <% if user_signed_in? %>
-        <%= form_with(model: [@content, @comment], local: true) do |f| %>
-            <%= f.text_area :body %>
-            <%= button_tag type: "submit" do %>
-                <i class="fa-comments"></i> コメントする
+        <div class="card-footer text-muted">
+        <% if current_user.already_liked?(@content) %>
+            <%= link_to content_like_path(@content), method: :delete do %>
+                <p>いいねを取り消す</p><%= @content.likes.count %>
+            <% end %>
+        <% else %>
+            <%= link_to content_likes_path(@content), method: :post do %>
+                <p><span class="far fa-thumbs-up">いいね: <%= @content.likes.count %></p>
             <% end %>
         <% end %>
+        </div>
+    <% else %>
+        <div class="card-footer text-muted">
+            <p><span class="far fa-thumbs-up">いいねの数: <%= @content.likes.count %></p>
+        </div>
     <% end %>
 </div>
 
-<% if user_signed_in? && current_user.id == @content.user_id %>  
-    <%= link_to "投稿の修正", edit_content_path(@content.id) %>
-    <%= button_to "削除する", content_path(@content.id), method: :delete %>
-<% end %>
+<div class="container border mt-3">
+    <h3 class="fw-bold mt-3">コメント一覧</h3>
+        <% @comments.each do |cm| %>
+            <div class="media-body border-bottom">
+                <%= cm.user.name %>
+                <br>
+                <%= cm.body %>
+                <div class="text-right"><%= cm.created_at %></div>
+            </div>
+            <br>
+        <% end %>
 
-<%= link_to "投稿一覧へ", contents_path %>
+        <% if user_signed_in? %>
+            <%= form_with(model: [@content, @comment], local: true) do |f| %>
+                <%= f.text_area :body, placeholder:"コメントを入力",class:"form-control h-30 mb-3"%>
+                <%= button_tag type: "submit", class:"btn btn-primary mb-3" do %>
+                    <i class="fa-comments"></i> コメントする
+                <% end %>
+            <% end %>
+        <% end %>
+</div>
+
+<div class="d-flex justify-content-end align-items-center">
+    <% if user_signed_in? && current_user.id == @content.user_id %>  
+        <%= link_to "投稿の修正", edit_content_path(@content.id), class:"btn btn-link" %>
+        <%= button_to "削除する", content_path(@content.id), method: :delete, class:"btn btn-dark" %>
+    <% end %>
+
+    <%= link_to "投稿一覧へ", contents_path, class:"btn btn-link" %>
+</div>
