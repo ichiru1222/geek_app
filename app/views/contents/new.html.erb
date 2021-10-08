@@ -15,8 +15,8 @@
                 <%= f.file_field :video, :class => "btn btn-light" %>
             </div>
             <div class="form_group">
-                <%= f.label :my_comment %>
-                <%= f.text_area :my_comment, row:32, :class => "form-control", id:"item_comment" %>
+                <%= f.label :my_comment, :class => "form-label" %>
+                <%= f.text_area :my_comment, :class => "form-control" %>
             </div>
             <div class="button">
                 <%= f.submit "投稿する", class: "btn btn-primary mt-4" %>
