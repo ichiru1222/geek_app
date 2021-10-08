@@ -13,6 +13,7 @@
     <% if user_signed_in? %>
         <div class="card-footer text-muted">
         <% if current_user.already_liked?(@content) %>
+            <p><span class="far fa-thumbs-up"></span>いいね:<%= @content.likes.count %></p>
             <%= link_to content_like_path(@content), method: :delete do %>
                 <p>いいねを取り消す</p><%= @content.likes.count %>
             <% end %>

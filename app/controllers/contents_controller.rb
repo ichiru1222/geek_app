@@ -1,6 +1,7 @@
 class ContentsController < ApplicationController
     def index
         @contents = Content.all.page(params[:page]).per(3)
+        @Top_favorite_content = Content.all.sort {|a,b| b.liked_users.count <=> a.liked_users.count}.first
     end
 
     def search
