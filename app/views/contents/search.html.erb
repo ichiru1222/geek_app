@@ -1,36 +1,45 @@
-<h3>投稿を検索</h3>
- <%= form_tag(url:search_contents_path, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
 
-<div class="contents-container">
-    <% @contents.each do |c| %>
-        <div class="contents">
-            <%= c.title %>
-            <%= c.artist %>
-            <%= c.video %>
-            <%= c.my_comment %>
-            <%= c.user.name %>
-            <%= c.created_at %>
+
+<h2>投稿一覧</h2>
+
+
+<br>
+<%= page_entries_info @contents %>
+
+<div class="card-deck">
+<% @contents.each do |c| %>
+    
+        <div class="card" style="width: 9rem;">
+            <div class="card-img-top thumbnail"><%= video_tag(c.video, controls: true, width: "100%", height: "100%" ) %></div>
+            <div class="card-body">
+                <h5 class="card-title"><%= c.title %></h4>
+                <h6 class="card-subtitle text-muted mt-5"><%= c.artist %></h6>
+                <a href="/users/<%= c.user.id %>", class="card-link"><h5 class="text-right"><%= c.user.name %></h5></a>
+                <div class="mb-2 text-muted"><%= c.created_at %></div>
+                <%= link_to "詳細へ", content_path(c.id), class:"btn btn-secondary pull-right" %>
+            
+                <% if user_signed_in? %>
+                    <% if current_user.already_liked?(c) %>
+                        <%= link_to content_like_path(id: c.id, content_id: c.id), method: :delete do %>
+                            <p>いいねを取り消す</p><%= c.likes.count %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to content_likes_path(id: c.id, content_id: c.id), method: :post do %>
+                            <p><i class="far fa-thumbs-up"></i>いいね:<%= c.likes.count %></p>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <div class="card-footer text-muted">
+                        <p><i class="far fa-thumbs-up">いいねの数 : <%= c.likes.count %> </p>
+                    </div>
+                <% end %>
+            </div>
         </div>
-        <%= link_to "詳細へ", content_path(c.id) %>
-    <% if user_signed_in? %>
-      <% if current_user.already_liked?(c) %>
-          <%= link_to content_like_path(id: c.id, content_id: c.id), method: :delete do %>
-              <p>いいねを取り消す</p><%= c.likes.count %>
-          <% end %>
-            <% else %>
-             <%= link_to content_likes_path(id: c.id, content_id: c.id), method: :post do %>
-                <p>いいね</p><%= c.likes.count %>
-            <% end %>
-            <% end %>
-        <% else %>
-            <p>いいねの数 = </p><%= c.likes.count %>
-    <% end %>
-
-    <% end %>
+    
+<% end %>
 </div>
+
+<%= paginate @contents %>
 
 <div class="link">
     <%= link_to "投稿一覧に戻る", contents_path %>

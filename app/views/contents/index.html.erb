@@ -7,6 +7,7 @@
 <%= page_entries_info @contents %>
 
 <div class="card-deck">
+
 <% @contents.each do |c| %>
     
         <div class="card" style="width: 9rem;">
@@ -16,7 +17,7 @@
                 <h6 class="card-subtitle text-muted mt-5"><%= c.artist %></h6>
                 <a href="/users/<%= c.user.id %>", class="card-link"><h5 class="text-right"><%= c.user.name %></h5></a>
                 <div class="mb-2 text-muted"><%= c.created_at %></div>
-                <%= link_to "詳細へ", content_path(c.id), class:"btn btn-secondary pull-right" %>
+                <%= link_to "詳細へ", content_path(c.id), class:"btn btn-secondary pull-right mb-3" %>
             
                 <% if user_signed_in? %>
                     <% if current_user.already_liked?(c) %>
@@ -30,7 +31,7 @@
                     <% end %>
                 <% else %>
                     <div class="card-footer text-muted">
-                        <p><i class="far fa-thumbs-up">いいねの数 : <%= c.likes.count %> </p>
+                        <p>いいねの数 : <%= c.likes.count %> </p>
                     </div>
                 <% end %>
             </div>
