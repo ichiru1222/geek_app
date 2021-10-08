@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <%= link_to "Instrumovie", contents_path, :class => "navbar-brand" %>
+        <%= link_to "Instrumovie", contents_path, :class => "navbar-brand text-white" %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,20 +9,20 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <% if user_signed_in? %>
-                        <%= link_to "マイページへ", user_path(current_user.id), class:"nav-link text-gray" %>
+                        <%= link_to "マイページへ", user_path(current_user.id), class:"nav-link text-white" %>
                     <% else %>
-                        <%= link_to "ログイン", new_user_session_path, class:"nav-link text-gray" %>
+                        <%= link_to "ログイン", new_user_session_path, class:"nav-link text-white" %>
                     <% end %>
                 </li>
                 <li class="nav-item">
                     <% if user_signed_in? %>
-                        <%= link_to "ログアウト", destroy_user_session_path, method: :delete,  class:"nav-link" %>
+                        <%= link_to "ログアウト", destroy_user_session_path, method: :delete,  class:"nav-link text-white" %>
                     <% else %>
-                        <%= link_to "新規登録", new_user_registration_path, class: 'nav-link' %>
+                        <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-white' %>
                     <% end %>
                 </li>
                 <li class="nav-item">
-                    <%= link_to "新規投稿", new_content_path, class:"nav-link btn btn-light" %>
+                    <%= link_to "新規投稿", new_content_path, class:"nav-link btn btn-light text-dark" %>
                 </li>
                 
             </ul>
